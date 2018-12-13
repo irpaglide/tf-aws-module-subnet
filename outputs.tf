@@ -7,7 +7,7 @@ output "private_subnet_ids" {
 }
 
 output "private_subnet_ids_count" {
-  value = "${length(aws_subnet.private)}"
+  value = "${length(aws_subnet.private.*)}"
 }
 
 
