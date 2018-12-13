@@ -6,6 +6,11 @@ output "private_subnet_ids" {
   value = ["${aws_subnet.private.*.id}"]
 }
 
+output "private_subnet_ids_count" {
+  value = "${length(aws_subnet.private)}"
+}
+
+
 output "default_security_group_id" {
   value = "${aws_security_group.default.id}"
 }
