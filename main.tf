@@ -9,7 +9,7 @@ resource "aws_subnet" "public" {
   cidr_block              = "${cidrsubnet(var.vpc_cidr, var.newbits, var.az_number[data.aws_availability_zone.az.*.name_suffix[count.index]] + var.public_netnum_offset)}"
   availability_zone       = "${var.availability_zones[count.index]}"
   map_public_ip_on_launch = true
-  tags                    = "${merge(map("Name", "${var.name}-${var.env}-sn-public-${data.aws_availability_zone.az.*.name_suffix[count.index]}"), var.tags)}"
+  tags                    = "${merge(map("Name", "${var.name}-${var.env}-sn-public-${data.aws_availability_zone.az.*.name_suffix[count.index]}"),map("type", "public"), var.tags)}"
 }
 
 resource "aws_route_table" "public" {
@@ -60,7 +60,7 @@ resource "aws_subnet" "private" {
   cidr_block              = "${cidrsubnet(var.vpc_cidr, var.newbits, var.az_number[data.aws_availability_zone.az.*.name_suffix[count.index]] + var.private_netnum_offset)}"
   availability_zone       = "${var.availability_zones[count.index]}"
   map_public_ip_on_launch = false
-  tags                    = "${merge(map("Name", "${var.name}-${var.env}-sn-private-${data.aws_availability_zone.az.*.name_suffix[count.index]}"), var.tags)}"
+  tags                    = "${merge(map("Name", "${var.name}-${var.env}-sn-private-${data.aws_availability_zone.az.*.name_suffix[count.index]}"),map("type", "private"), var.tags)}"
   depends_on              = ["aws_nat_gateway.nat_gw"]
 }
 
