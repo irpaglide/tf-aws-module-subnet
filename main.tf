@@ -14,7 +14,7 @@ resource "aws_subnet" "public" {
 
 resource "aws_route_table" "public" {
   vpc_id = "${var.vpc_id}"
-  tags   = "${merge(map("Name", "${var.name}-${var.env}-rt-public"), var.tags)}"
+  tags   = "${merge(map("Name", "${var.name}-${var.env}-rt-public"),map("type", "public"), var.tags)}"
 }
 
 resource "aws_route" "internet_route" {
