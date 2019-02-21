@@ -67,7 +67,7 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "private" {
   count  = "${length(var.availability_zones)}"
   vpc_id = "${var.vpc_id}"
-  tags   = "${merge(map("Name", "${var.name}-${var.env}-rt-private-${data.aws_availability_zone.az.*.name_suffix[count.index]}"),,map("type", "private"), var.tags)}"
+  tags   = "${merge(map("Name", "${var.name}-${var.env}-rt-private-${data.aws_availability_zone.az.*.name_suffix[count.index]}"),map("type", "private"), var.tags)}"
 }
 
 resource "aws_route" "nat_route" {
